@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="PDFBuddy — simple, private PDF tools that run in your browser.">
+  <title>PDFBuddy — Simple PDF tools</title>
+  <style>
+    :root{--red:#e5322d;--red-dark:#c9231f;--ink:#242424;--muted:#686868;--line:#e8e8e8;--bg:#fafafa;--white:#fff;--green:#157347}
+    *{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--white)}
+    a{color:inherit;text-decoration:none}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100% - 1120px)/2));gap:20px}
+    .brand{display:flex;align-items:center;gap:10px;font-size:23px;font-weight:800;letter-spacing:-.7px}.logo{width:34px;height:38px;background:var(--red);border-radius:7px 7px 7px 7px;display:grid;place-items:center;color:#fff;font-size:17px;font-weight:800;position:relative}.logo:after{content:"";position:absolute;right:0;top:0;border-style:solid;border-width:0 0 10px 10px;border-color:transparent transparent #ff8c88 transparent}
+    .nav{display:flex;gap:25px;color:#555;font-size:14px}.nav a:hover{color:var(--red)}.nav-cta{background:var(--red);color:#fff;padding:11px 17px;border-radius:7px;font-weight:700;font-size:14px}
+    .hero{background:#fff8f7;padding:64px 22px 46px;text-align:center;border-bottom:1px solid #f4e4e2}.eyebrow{display:inline-block;color:var(--red-dark);background:#ffe7e5;border-radius:100px;padding:7px 12px;font-size:12px;font-weight:800;letter-spacing:.5px;text-transform:uppercase}
+    h1{font-size:clamp(34px,5vw,55px);line-height:1.08;letter-spacing:-2px;margin:18px auto 15px;max-width:760px}.hero p{color:#5f5f5f;font-size:17px;line-height:1.65;max-width:610px;margin:0 auto 27px}.hero-actions{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}.btn{border:0;border-radius:8px;padding:13px 19px;font-weight:750;font-size:14px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px}.btn-primary{background:var(--red);color:#fff}.btn-primary:hover{background:var(--red-dark)}.btn-secondary{background:#fff;border:1px solid #ddd;color:#333}.trust{margin-top:22px;font-size:12px;color:#777}
+    main{max-width:1120px;margin:auto;padding:45px 22px 70px}.section-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}.section-head h2{font-size:26px;letter-spacing:-.7px;margin:0 0 7px}.section-head p{color:var(--muted);margin:0;font-size:14px}.search{border:1px solid #ddd;border-radius:8px;padding:11px 13px;min-width:230px;font:inherit;font-size:13px;outline-color:var(--red)}
+    .tools{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.tool{border:1px solid var(--line);border-radius:12px;padding:21px 18px;min-height:165px;transition:.18s;cursor:pointer;background:#fff;text-align:left}.tool:hover{border-color:#f1aaa7;box-shadow:0 8px 24px #e5322d0d;transform:translateY(-2px)}.tool-icon{width:44px;height:44px;border-radius:10px;background:#fff0ef;display:grid;place-items:center;font-size:23px;margin-bottom:17px}.tool h3{font-size:16px;margin:0 0 7px}.tool p{font-size:12px;color:#737373;line-height:1.5;margin:0}
+    .privacy{margin-top:38px;border:1px solid var(--line);border-radius:13px;padding:22px;display:flex;gap:15px;align-items:center;background:#fcfcfc}.privacy-icon{font-size:24px}.privacy h3{font-size:15px;margin:0 0 5px}.privacy p{font-size:13px;color:#666;margin:0;line-height:1.5}
+    .tool-panel{display:none;margin-top:26px;border:1px solid var(--line);border-radius:14px;padding:24px;background:#fff;scroll-margin-top:18px}.tool-panel.active{display:block}.panel-top{display:flex;align-items:start;justify-content:space-between;gap:12px}.panel-top h2{margin:0 0 7px;font-size:24px}.panel-top p{margin:0;color:#666;font-size:14px;line-height:1.5}.close{border:1px solid #ddd;background:#fff;border-radius:7px;padding:8px 11px;cursor:pointer}.dropzone{margin-top:22px;border:2px dashed #e7b2af;border-radius:12px;background:#fffafa;padding:30px 18px;text-align:center}.dropzone .big{font-size:35px}.dropzone h3{margin:9px 0 5px;font-size:17px}.dropzone p{color:#777;font-size:13px;margin:0 0 16px}.file-input{display:none}.file-list{font-size:13px;color:#444;margin-top:12px;line-height:1.8}.panel-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:17px}.panel-controls label{font-size:13px;color:#555}.panel-controls input[type=text]{padding:11px;border:1px solid #ddd;border-radius:7px;font:inherit;width:190px}.status{font-size:13px;margin-top:14px;color:#555;line-height:1.5}.status.error{color:#b42318}.status.success{color:var(--green)}.note{color:#777;font-size:12px;margin-top:12px;line-height:1.5}
+    footer{border-top:1px solid var(--line);padding:27px 22px;color:#777;font-size:12px}.footer-inner{max-width:1120px;margin:auto;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap}
+    @media(max-width:850px){.tools{grid-template-columns:repeat(2,1fr)}.nav{display:none}.section-head{align-items:start;flex-direction:column}.search{width:100%}}
+    @media(max-width:480px){.tools{grid-template-columns:1fr}.hero{padding-top:45px}.topbar{height:64px}.tool{min-height:130px}.privacy{align-items:start}}
+  </style>
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="#" aria-label="PDFBuddy home"><span class="logo">P</span><span>PDFBuddy</span></a>
+  <nav class="nav"><a href="#tools">All tools</a><a href="#privacy">Privacy</a><a href="#about">About</a></nav>
+  <a class="nav-cta" href="#tools">Explore tools <span aria-hidden="true">↗</span></a>
+</header>
+<section class="hero">
+  <span class="eyebrow">Simple PDF tools</span>
+  <h1>Everything you need to work with PDFs.</h1>
+  <p>Merge, split, and manage PDF files in a few clicks. No account needed — your files stay on your device with the tools available here.</p>
+  <div class="hero-actions"><a class="btn btn-primary" href="#tools">Explore all tools <span>→</span></a><button class="btn btn-secondary" id="heroMerge">Merge PDFs</button></div>
+  <div class="trust">✓ Easy to use &nbsp; · &nbsp; ✓ No sign-up &nbsp; · &nbsp; ✓ Browser-based processing</div>
+</section>
+<main>
+  <section id="tools">
+    <div class="section-head"><div><h2>Choose a PDF tool</h2><p>Pick a tool to get started. More tools can be added as the project grows.</p></div><input class="search" id="search" type="search" placeholder="Search tools…" aria-label="Search tools"></div>
+    <div class="tools" id="toolGrid">
+      <button class="tool" data-tool="merge"><div class="tool-icon">▤</div><h3>Merge PDF</h3><p>Combine multiple PDF files into one document.</p></button>
+      <button class="tool" data-tool="split"><div class="tool-icon">✂</div><h3>Split PDF</h3><p>Extract a range of pages into a new PDF.</p></button>
+      <button class="tool" data-tool="jpg"><div class="tool-icon">▧</div><h3>JPG to PDF</h3><p>Turn JPG and PNG images into a PDF.</p></button>
+      <button class="tool" data-tool="compress"><div class="tool-icon">⇩</div><h3>Compress PDF</h3><p>A placeholder for future advanced compression.</p></button>
+      <button class="tool" data-tool="word"><div class="tool-icon">W</div><h3>Word to PDF</h3><p>A future tool for converting Word documents.</p></button>
+      <button class="tool" data-tool="convert"><div class="tool-icon">⇄</div><h3>PDF to JPG</h3><p>A future tool for exporting PDF pages as images.</p></button>
+      <button class="tool" data-tool="rotate"><div class="tool-icon">↻</div><h3>Rotate PDF</h3><p>A future tool for rotating selected pages.</p></button>
+      <button class="tool" data-tool="protect"><div class="tool-icon">♙</div><h3>Protect PDF</h3><p>A future tool for password protection.</p></button>
+    </div>
+  </section>
+  <section class="tool-panel" id="toolPanel" aria-live="polite">
+    <div class="panel-top"><div><h2 id="panelTitle">Merge PDF</h2><p id="panelDesc">Choose two or more PDF files to combine them.</p></div><button class="close" id="closePanel" aria-label="Close tool">✕</button></div>
+    <div class="dropzone" id="dropzone"><div class="big">📄</div><h3 id="dropTitle">Select PDF files</h3><p id="dropDesc">Choose files from your device. Files are processed in your browser.</p><input class="file-input" id="fileInput" type="file" accept=".pdf,application/pdf" multiple><button class="btn btn-primary" id="chooseFiles">Select files</button><div class="file-list" id="fileList"></div></div>
+    <div class="panel-controls" id="panelControls"><label id="rangeLabel" for="pageRange" hidden>Pages to extract (e.g. 1-3):</label><input id="pageRange" type="text" placeholder="e.g. 1-3" hidden><button class="btn btn-primary" id="runTool">Merge PDFs</button><button class="btn btn-secondary" id="clearFiles">Clear files</button></div>
+    <div class="status" id="status"></div>
+    <p class="note" id="toolNote">Privacy note: processing is done in your browser in this starter version. Do not close this tab while a tool is running.</p>
+  </section>
+  <section class="privacy" id="privacy"><div class="privacy-icon">🔒</div><div><h3>Your files are yours</h3><p>Merge, split, and image-to-PDF tools run locally in your browser in this starter version. Files are not uploaded to a PDFBuddy server. Avoid using public or shared computers for sensitive documents.</p></div></section>
+  <section id="about" style="padding-top:36px"><h2 style="font-size:20px;margin-bottom:8px">About PDFBuddy</h2><p style="font-size:13px;color:#666;line-height:1.7;max-width:760px">PDFBuddy is an independent starter project for everyday PDF tasks. This demo includes working Merge PDF, Split PDF, and JPG/PNG to PDF tools. Other cards are clearly marked as future tools and are not functional yet.</p></section>
+</main>
+<footer><div class="footer-inner"><span>© <span id="year"></span> PDFBuddy · Built for simpler documents</span><span>Independent project — not affiliated with iLovePDF.</span></div></footer>
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script>
+(() => {
+  const $ = s => document.querySelector(s);
+  const panel = $('#toolPanel'), input = $('#fileInput'), fileList = $('#fileList'), status = $('#status');
+  let currentTool = 'merge', files = [];
+  const config = {
+    merge:{title:'Merge PDF',desc:'Choose two or more PDF files to combine them.',accept:'.pdf,application/pdf',multiple:true,button:'Merge PDFs',drop:'Select PDF files'},
+    split:{title:'Split PDF',desc:'Choose one PDF and enter the page range you want to extract.',accept:'.pdf,application/pdf',multiple:false,button:'Extract pages',drop:'Select one PDF'},
+    jpg:{title:'JPG to PDF',desc:'Choose JPG or PNG images to place them into a single PDF.',accept:'image/jpeg,image/png,.jpg,.jpeg,.png',multiple:true,button:'Create PDF',drop:'Select images'},
+    compress:{title:'Compress PDF',desc:'Advanced compression is not included in this starter version.',accept:'.pdf,application/pdf',multiple:false,button:'Check tool',drop:'Select a PDF'},
+    word:{title:'Word to PDF',desc:'Word conversion is planned for a future version.',accept:'.doc,.docx',multiple:false,button:'Coming soon',drop:'Select a Word file'},
+    convert:{title:'PDF to JPG',desc:'PDF page-to-image export is planned for a future version.',accept:'.pdf,application/pdf',multiple:false,button:'Coming soon',drop:'Select a PDF'},
+    rotate:{title:'Rotate PDF',desc:'PDF rotation is planned for a future version.',accept:'.pdf,application/pdf',multiple:false,button:'Coming soon',drop:'Select a PDF'},
+    protect:{title:'Protect PDF',desc:'Password protection is planned for a future version.',accept:'.pdf,application/pdf',multiple:false,button:'Coming soon',drop:'Select a PDF'}
+  };
+  function openTool(name){currentTool=name;const c=config[name];panel.classList.add('active');$('#panelTitle').textContent=c.title;$('#panelDesc').textContent=c.desc;$('#dropTitle').textContent=c.drop;$('#dropDesc').textContent=name==='jpg'?'JPG and PNG images are processed locally in your browser.':'Files are processed in your browser when the tool is supported.';$('#runTool').textContent=c.button;input.accept=c.accept;input.multiple=c.multiple;$('#rangeLabel').hidden=name!=='split';$('#pageRange').hidden=name!=='split';$('#toolNote').textContent=(name==='compress'||name==='word'||name==='convert'||name==='rotate'||name==='protect')?'This tool is a visual placeholder and does not process files yet.':'Your selected files stay in this browser tab and are not uploaded to a PDFBuddy server.';clearFiles();panel.scrollIntoView({behavior:'smooth',block:'start'});}
+  function clearFiles(){files=[];input.value='';fileList.textContent='';status.textContent='';status.className='status';}
+  document.querySelectorAll('[data-tool]').forEach(b=>b.addEventListener('click',()=>openTool(b.dataset.tool)));
+  $('#heroMerge').addEventListener('click',()=>openTool('merge'));
+  $('#closePanel').addEventListener('click',()=>{panel.classList.remove('active');clearFiles();});
+  $('#chooseFiles').addEventListener('click',()=>input.click());
+  $('#clearFiles').addEventListener('click',clearFiles);
+  input.addEventListener('change',()=>{files=Array.from(input.files||[]);fileList.textContent=files.map((f,i)=>`${i+1}. ${f.name} (${formatSize(f.size)})`).join('\\n');fileList.style.whiteSpace='pre-line';status.textContent=files.length?`${files.length} file(s) selected.`:'';});
+  $('#search').addEventListener('input',e=>{const q=e.target.value.toLowerCase();document.querySelectorAll('[data-tool]').forEach(b=>b.style.display=b.innerText.toLowerCase().includes(q)?'':'none');});
+  function formatSize(n){if(n<1024)return n+' B';if(n<1024*1024)return (n/1024).toFixed(1)+' KB';return (n/1024/1024).toFixed(1)+' MB';}
+  function setStatus(msg,kind=''){status.textContent=msg;status.className='status '+kind;}
+  function download(bytes,name,type='application/pdf'){const blob=new Blob([bytes],{type}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+  $('#runTool').addEventListener('click',async()=>{
+    if(['compress','word','convert','rotate','protect'].includes(currentTool)){setStatus('This feature is not implemented yet. The card is a placeholder for a future update.','error');return;}
+    if(!window.PDFLib){setStatus('The PDF library did not load. Check your internet connection and reload this page.','error');return;}
+    if(!files.length){setStatus('Please select your file(s) first.','error');return;}
+    const btn=$('#runTool');btn.disabled=true;btn.style.opacity='.7';
+    try{
+      if(currentTool==='merge'){
+        if(files.length<2)throw new Error('Select at least two PDF files to merge.');
+        const out=await PDFLib.PDFDocument.create();
+        for(const f of files){if(!f.name.toLowerCase().endsWith('.pdf'))throw new Error('Please select PDF files only.');const src=await PDFLib.PDFDocument.load(await f.arrayBuffer());const pages=await out.copyPages(src,src.getPageIndices());pages.forEach(p=>out.addPage(p));}
+        download(await out.save(),'pdfbuddy-merged.pdf');setStatus('Merged successfully. Your download should begin shortly.','success');
+      } else if(currentTool==='split'){
+        const f=files[0];if(!f.name.toLowerCase().endsWith('.pdf'))throw new Error('Please select a PDF file.');
+        const src=await PDFLib.PDFDocument.load(await f.arrayBuffer());const total=src.getPageCount(),range=$('#pageRange').value.trim();
+        const match=range.match(/^(\\d+)\\s*-\\s*(\\d+)$/);if(!match)throw new Error('Enter a page range like 1-3.');
+        const start=Number(match[1]),end=Number(match[2]);if(start<1||end<start||end>total)throw new Error(`Enter a valid range between 1 and ${total}.`);
+        const out=await PDFLib.PDFDocument.create();const pages=await out.copyPages(src,Array.from({length:end-start+1},(_,i)=>start-1+i));pages.forEach(p=>out.addPage(p));download(await out.save(),'pdfbuddy-pages.pdf');setStatus(`Extracted pages ${start}–${end} successfully.`,'success');
+      } else if(currentTool==='jpg'){
+        const out=await PDFLib.PDFDocument.create();
+        for(const f of files){const buf=await f.arrayBuffer();let img;if(/\\.png$/i.test(f.name)||f.type==='image/png')img=await out.embedPng(buf);else if(/\\.(jpe?g)$/i.test(f.name)||f.type==='image/jpeg')img=await out.embedJpg(buf);else throw new Error('Please select JPG or PNG images only.');const page=out.addPage([img.width,img.height]);page.drawImage(img,{x:0,y:0,width:img.width,height:img.height});}
+        download(await out.save(),'pdfbuddy-images.pdf');setStatus('Created your PDF successfully.','success');
+      }
+    }catch(err){setStatus(err.message||'Something went wrong. Try a smaller or different file.','error');}
+    finally{btn.disabled=false;btn.style.opacity='1';}
+  });
+  $('#year').textContent=new Date().getFullYear();
+  // Drag and drop support
+  const dz=$('#dropzone');dz.addEventListener('dragover',e=>{e.preventDefault();dz.style.background='#fff0ef';});dz.addEventListener('dragleave',()=>dz.style.background='');dz.addEventListener('drop',e=>{e.preventDefault();dz.style.background='';files=Array.from(e.dataTransfer.files||[]);fileList.textContent=files.map((f,i)=>`${i+1}. ${f.name} (${formatSize(f.size)})`).join('\\n');fileList.style.whiteSpace='pre-line';input.files=e.dataTransfer.files;status.textContent=files.length?`${files.length} file(s) selected.`:'';});
+})();
+</script>
+</body>
+</html>
