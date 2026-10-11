@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://vikashkumarroypatna-ai.github.io/pdfbuddy/sitemap.xml
